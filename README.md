@@ -26,7 +26,7 @@ of face-down/up cards. This repeats until one player's face-up card is higher th
  
 ``` python 
 game = Game(["Luis", "Computer"])
-g.start()
+game.start()
 ```
 
 To run the game:
