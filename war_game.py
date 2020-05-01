@@ -6,16 +6,16 @@ ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
 
 class Deck:
 	"""
-		A Deck of cards.
+	 A Deck of cards.
 
-		It will create a deck of 52 cards. 
+	 It will create a deck of 52 cards. 
 
-		A card is represented like this [suites, ranks].
+	 A card is represented like this [suites, ranks].
 
-		To shuffle the deck use shuffle()
+	 To shuffle the deck use shuffle()
 
-		Attributes:
-		 cards: A list of lists representing cards.
+	 Attributes:
+	 cards: A list of lists representing cards.
 	"""
 	
 	def __init__(self):
@@ -24,7 +24,7 @@ class Deck:
 
 	def build_deck(self):
 		""" 
-			Itereates through the lists of suits and ranks to create a list of cards. 
+		 Itereates through the lists of suits and ranks to create a list of cards. 
 		"""
 		for suit in suits:
 			for rank in ranks:
@@ -37,40 +37,40 @@ class Deck:
 
 class Hand:
 	"""
-		A hand of cards. 
+	 A hand of cards. 
 
-		Players will use this class to manage their cards and perform 
-		actions during a game. 
+	 Players will use this class to manage their cards and perform 
+	 actions during a game. 
 
-		Attributes:
-		 cards: A list of lists representing cards.
+	 Attributes:
+	 cards: A list of lists representing cards.
 	"""
 	def __init__(self, cards):
 		self.cards = cards
 
 	def play_card(self):
 		""" 
-			Play a card from the hand. 
+		 Play a card from the hand. 
 
-			It will remove and return the card from the top of the 
-			players' deck.
+		 It will remove and return the card from the top of the 
+		 players' deck.
 
-			Returns:
-				A list representing a card. [suites, ranks]
+		 Returns:
+		  A list representing a card. [suites, ranks]
 
-			Raises:
-				Index Error if the list is empty.
+		 Raises:
+		  Index Error if the list is empty.
 		"""
 		return self.cards.pop()
 
 	def add_cards(self, cards):
 		"""
-			Add cards to Players Hand. 
+		 Add cards to Players Hand. 
 
-			Add cards to the beginning of the list. Or bottom of the deck. 
+		 Add cards to the beginning of the list. Or bottom of the deck. 
 
-			Args:
-				cards: A list of cards. 
+		 Args:
+		  cards: A list of cards. 
 		"""
 		self.cards = cards + self.cards
 
@@ -80,23 +80,23 @@ class Hand:
 
 	def is_empty(self):
 		""" 
-			Check if the hand is empty.
+		 Check if the hand is empty.
 
-			Return true if there are not any cards on the players hand. 
+		 Return true if there are not any cards on the players hand. 
 
-			Returns:
-				True or false depending if the hand is empty or not. 
+		 Returns:
+		  True or false depending if the hand is empty or not. 
 		"""
 		return len(self.cards) == 0
 
 	def empty_the_hand(self):
 		"""
-			Remove all of the cards from the hand. 
+		 Remove all of the cards from the hand. 
 
-			Remove cards and return cards removed. 
+		 Remove cards and return cards removed. 
 
-			Returns:
-				List of cards that were removed from hand. 
+		 Returns:
+		  List of cards that were removed from hand. 
 		"""
 		temp = self.cards.copy()
 		self.cards.clear()
@@ -105,11 +105,11 @@ class Hand:
 
 class Player:
 	"""
-		A player for the game. 
+	 A player for the game. 
 
-		Attributes:
-			name: The name of the player
-			hand: A hand object. The hand the player will use to play the game. 
+	 Attributes:
+	  name: The name of the player
+	  hand: A hand object. The hand the player will use to play the game. 
 	"""
 
 	def __init__(self, name, hand):
@@ -118,14 +118,14 @@ class Player:
 
 	def war_play(self):
 		"""
-			A war play
+		 A war play
 
-			Gives the 3 cards from the top of the deck. 
+		 Gives the 3 cards from the top of the deck. 
 
-			It gets the 3 cards. Then, it removes them from the players hand. 
+		 It gets the 3 cards. Then, it removes them from the players hand. 
 			
-			Returns:
-				List of cards
+		 Returns:
+		   List of cards
 		"""
 		cards_facing_down = self.hand.cards[len(self.hand.cards)-3:]
 		del self.hand.cards[len(self.hand.cards)-3:]
@@ -134,17 +134,17 @@ class Player:
 
 class Game:
 	"""
-		The War Game.
+	 The War Game.
 
-		Creates a game with all the funcionality to set it up and to play it.
+	 Creates a game with all the funcionality to set it up and to play it.
 
-		To initialize it, it needs the name of two players. Then it will create two Players
-		with half of a shuffled deck of cards. 
+	 To initialize it, it needs the name of two players. Then it will create two Players
+	 with half of a shuffled deck of cards. 
 
-		Attributes:
-			table_cards: A list of cards that are currently being played, or are in the table.
-			player1: A player that will play the game.
-			player2: Second player for the game. 
+	 Attributes:
+  	   table_cards: A list of cards that are currently being played, or are in the table.
+	   player1: A player that will play the game.
+	   player2: Second player for the game. 
 	"""
 
 	def __init__(self, players):
@@ -156,13 +156,13 @@ class Game:
 
 	def start(self):
 		"""
-			Starts a game.
+		  Starts a game.
 
-			It will play a card everytime until a player ends up with an empty hand.
+		  It will play a card everytime until a player ends up with an empty hand.
 
-			After the players play their cards, it will compare them to see who wins. 
+		  After the players play their cards, it will compare them to see who wins. 
 
-			After a player with empty hands is found it will check the results. 
+		  After a player with empty hands is found it will check the results. 
 		"""
 		print("Starting game")
 		count = 0
@@ -192,23 +192,23 @@ class Game:
 
 	def check_cards(self, player1_card, player2_card):
 		"""
-			Check the cards players played 
+		  Check the cards players played 
 
-			It compares two cards and it will add the cards on the table to 
-			whoevers card's is higher. 
+		  It compares two cards and it will add the cards on the table to 
+		  whoevers card's is higher. 
 
-			In case the cards are the same it will do WAR!! It will take 3 cards from
-			each player, add them to the table, and then the process will repeat again 
-			with a new cards. 
+		  In case the cards are the same it will do WAR!! It will take 3 cards from
+		  each player, add them to the table, and then the process will repeat again 
+		  with a new cards. 
 
-			If a players doesn't have enough cards to play WAR. It will empty their hands,
-			and put the on the table. And then the other player will gain the cards from the table.
+		  If a players doesn't have enough cards to play WAR. It will empty their hands,
+		  and put the on the table. And then the other player will gain the cards from the table.
 
-			Args:
-				player1_card: A card played from Player1
-				player2_card: A card played from Player2
-			Raises:
-				IndexError: If the cards provided are not in the right format [suit. rank]
+		  Args:
+		    player1_card: A card played from Player1
+		    player2_card: A card played from Player2
+		  Raises:
+		    IndexError: If the cards provided are not in the right format [suit. rank]
 		"""
 		self.table_cards.append(player1_card)
 		self.table_cards.append(player2_card)
@@ -254,7 +254,7 @@ class Game:
 
 	def check_results(self):
 		""" 
-			Display which player is the winner by checking their hands. 
+		  Display which player is the winner by checking their hands. 
 		"""
 		if self.player1.hand.is_empty():
 			print("Congrats! Player 2 WON!!!")
@@ -265,13 +265,13 @@ class Game:
 
 	def empty_table(self):
 		"""
-			Empty the cards on the table. 
+		  Empty the cards on the table. 
 		"""
 		self.table_cards = []
 
 	def display_game_info(self):
 		"""
-			Prints the information of the game into the console. 
+		  Prints the information of the game into the console. 
 		"""
 		print("##### WELCOME TO WAR ##############")
 		print("Player 1: %s" % self.player1.name)
