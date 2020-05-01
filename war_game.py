@@ -133,6 +133,19 @@ class Player:
 
 
 class Game:
+	"""
+		The War Game.
+
+		Creates a game with all the funcionality to set it up and to play it.
+
+		To initialize it, it needs the name of two players. Then it will create two Players
+		with half of a shuffled deck of cards. 
+
+		Attributes:
+			table_cards: A list of cards that are currently being played, or are in the table.
+			player1: A player that will play the game.
+			player2: Second player for the game. 
+	"""
 
 	def __init__(self, players):
 		deck = Deck()
@@ -142,6 +155,15 @@ class Game:
 		self.player2 = Player(players[1], Hand(deck.cards[:26]))
 
 	def start(self):
+		"""
+			Starts a game.
+
+			It will play a card everytime until a player ends up with an empty hand.
+
+			After the players play their cards, it will compare them to see who wins. 
+
+			After a player with empty hands is found it will check the results. 
+		"""
 		print("Starting game")
 		count = 0
 		while not self.player1.hand.is_empty() and not self.player2.hand.is_empty():
@@ -169,6 +191,25 @@ class Game:
 			
 
 	def check_cards(self, player1_card, player2_card):
+		"""
+			Check the cards players played 
+
+			It compares two cards and it will add the cards on the table to 
+			whoevers card's is higher. 
+
+			In case the cards are the same it will do WAR!! It will take 3 cards from
+			each player, add them to the table, and then the process will repeat again 
+			with a new cards. 
+
+			If a players doesn't have enough cards to play WAR. It will empty their hands,
+			and put the on the table. And then the other player will gain the cards from the table.
+
+			Args:
+				player1_card: A card played from Player1
+				player2_card: A card played from Player2
+			Raises:
+				IndexError: If the cards provided are not in the right format [suit. rank]
+		"""
 		self.table_cards.append(player1_card)
 		self.table_cards.append(player2_card)
 
@@ -212,6 +253,9 @@ class Game:
 			self.check_cards(player1_second_card, player2_second_card)
 
 	def check_results(self):
+		""" 
+			Display which player is the winner by checking their hands. 
+		"""
 		if self.player1.hand.is_empty():
 			print("Congrats! Player 2 WON!!!")
 		elif self.player2.hand.is_empty():
@@ -220,9 +264,15 @@ class Game:
 			print("Error!!!!")
 
 	def empty_table(self):
+		"""
+			Empty the cards on the table. 
+		"""
 		self.table_cards = []
 
 	def display_game_info(self):
+		"""
+			Prints the information of the game into the console. 
+		"""
 		print("##### WELCOME TO WAR ##############")
 		print("Player 1: %s" % self.player1.name)
 		print("Player 2: %s" % self.player2.name)
@@ -243,11 +293,8 @@ of face-down/up cards. This repeats until one player's face-up card is higher th
 
 		print(rules)
 
-
-
 if __name__ == "__main__":
 	g = Game(["Luis", "Computer"])
 	g.display_game_info()
 	input("Press Enter to continue...")
 	g.start()
-
