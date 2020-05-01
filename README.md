@@ -26,7 +26,7 @@ of face-down/up cards. This repeats until one player's face-up card is higher th
  
 ``` python 
 game = Game(["Luis", "Computer"])
-game.start()
+g.start()
 ```
 
 To run the game:
@@ -55,3 +55,13 @@ tests: python3 test_game.py
 - **Better logging**. Right now, we are just printing messages to the console. With a better logging feature we could have a cleaner interface for playing and testing. 
 - **Better User Interface**. It will be fun to create a GUI interface or even a website that players could interact with. Maybe using Kivy or Django.
 
+## Screenshots
+
+### Running the game
+![start-war-game](https://user-images.githubusercontent.com/7850532/80838283-87abae80-8bad-11ea-9dec-f41a2a0f1555.png)
+
+### End of the game
+![end-card-game](https://user-images.githubusercontent.com/7850532/80838368-be81c480-8bad-11ea-94f6-8645006b6452.png)
+
+### Example of war battle
+![example-of-war-battle](https://user-images.githubusercontent.com/7850532/80838449-e6712800-8bad-11ea-8811-267f34d1f916.png)
