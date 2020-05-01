@@ -103,4 +103,32 @@ class Hand:
 		return temp
 
 
+class Player:
+	"""
+		A player for the game. 
+
+		Attributes:
+			name: The name of the player
+			hand: A hand object. The hand the player will use to play the game. 
+	"""
+
+	def __init__(self, name, hand):
+		self.name = name
+		self.hand = hand
+
+	def war_play(self):
+		"""
+			A war play
+
+			Gives the 3 cards from the top of the deck. 
+
+			It gets the 3 cards. Then, it removes them from the players hand. 
+			
+			Returns:
+				List of cards
+		"""
+		cards_facing_down = self.hand.cards[len(self.hand.cards)-3:]
+		del self.hand.cards[len(self.hand.cards)-3:]
+		return cards_facing_down
+
 
