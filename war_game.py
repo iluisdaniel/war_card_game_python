@@ -132,3 +132,122 @@ class Player:
 		return cards_facing_down
 
 
+class Game:
+
+	def __init__(self, players):
+		deck = Deck()
+		deck.shuffle()
+		self.table_cards = []
+		self.player1 = Player(players[0], Hand(deck.cards[26:]))
+		self.player2 = Player(players[1], Hand(deck.cards[:26]))
+
+	def start(self):
+		print("Starting game")
+		count = 0
+		while not self.player1.hand.is_empty() and not self.player2.hand.is_empty():
+			print("Turn " + str(count))
+
+
+			print("Player1 number of cards " + str(len(self.player1.hand.cards)))
+			print("Player2 number of cards " + str(len(self.player2.hand.cards)))
+			count = count + 1
+
+			player1_card = self.player1.hand.play_card()
+			player2_card = self.player2.hand.play_card()
+
+			print("Player1 playing " + str(player1_card))
+			print("Player2 playing " + str(player2_card))
+
+			self.check_cards(player1_card, player2_card)
+
+			self.empty_table()
+			print("Cards in table " + str(self.table_cards))
+			print("#########################################")
+
+
+		self.check_results()
+			
+
+	def check_cards(self, player1_card, player2_card):
+		self.table_cards.append(player1_card)
+		self.table_cards.append(player2_card)
+
+		print("Cards in table " + str(self.table_cards))
+
+		if ranks.index(player1_card[1]) > ranks.index(player2_card[1]):
+			print("Player 1 WON!")
+			self.player1.hand.add_cards(self.table_cards)
+		elif ranks.index(player1_card[1]) < ranks.index(player2_card[1]):
+			print("Player 2 WON!")
+			self.player2.hand.add_cards(self.table_cards)
+		else:
+			print("WAR!!!")
+			if self.player1.hand.is_empty() or self.player2.hand.is_empty():
+				return
+
+			if len(self.player1.hand.cards) < 4:
+				print("Player 1 doesn't have enough cards!")
+				player1_last_cards = self.player1.hand.empty_the_hand()
+				self.table_cards = self.table_cards + player1_last_cards
+				self.player2.hand.add_cards(self.table_cards)
+				return
+			elif len(self.player2.hand.cards) < 4:
+				print("Player 2 doesn't have enough cards!")
+				player2_last_cards = self.player2.hand.empty_the_hand()
+				self.table_cards = self.table_cards + player2_last_cards
+				self.player1.hand.add_cards(self.table_cards)
+				return
+
+			player1_facing_down_cards = self.player1.war_play()
+			player2_facing_down_cards = self.player2.war_play()
+
+			self.table_cards = self.table_cards + player1_facing_down_cards + player2_facing_down_cards
+
+			player1_second_card = self.player1.hand.play_card()
+			player2_second_card = self.player2.hand.play_card()
+
+			print("Player1 playing " + str(player1_second_card))
+			print("Player2 playing " + str(player2_second_card))
+
+			self.check_cards(player1_second_card, player2_second_card)
+
+	def check_results(self):
+		if self.player1.hand.is_empty():
+			print("Congrats! Player 2 WON!!!")
+		elif self.player2.hand.is_empty():
+			print("Congrats! Player 1 WON!!!")
+		else:
+			print("Error!!!!")
+
+	def empty_table(self):
+		self.table_cards = []
+
+	def display_game_info(self):
+		print("##### WELCOME TO WAR ##############")
+		print("Player 1: %s" % self.player1.name)
+		print("Player 2: %s" % self.player2.name)
+		print("--------------------------------------")
+
+		rules = """\nRules:\n
+The objective of the game is to win all of the cards.
+
+The deck is divided evenly among the players, giving each a down stack. In unison, 
+each player reveals the top card of their deck—this is a "battle"—and the player with 
+the higher card takes both of the cards played and moves them to their stack. Aces are high, and suits are ignored.
+
+If the two cards played are of equal value, then there is a "war". Both players place the next  three cards of their 
+pile face down and then another card face-up. The owner of the higher face-up card wins the war and adds all the cards 
+on the table to the bottom of their deck. If the face-up cards are again equal then the battle repeats with another set 
+of face-down/up cards. This repeats until one player's face-up card is higher than their opponent's.
+"""
+
+		print(rules)
+
+
+
+if __name__ == "__main__":
+	g = Game(["Luis", "Computer"])
+	g.display_game_info()
+	input("Press Enter to continue...")
+	g.start()
+
